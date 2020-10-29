@@ -2,3 +2,4 @@ app001/node_modules
 package-lock.json
 .vscode
 yarn.lock
+eventtrigger/client/src/contracts
