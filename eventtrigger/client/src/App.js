@@ -33,6 +33,8 @@ class App extends Component {
         ItemContract.networks[this.networkId] && ItemContract.networks[this.networkId].address,
       );
 
+      this.listenToPaymentEvent();
+
       // Set web3, accounts, and contract to the state, and then proceed with an
       // example of interacting with the contract's methods.
       this.setState({ loaded: true });
@@ -58,7 +60,7 @@ class App extends Component {
 
     const result = await this.itemManager.methods.createItem(itemName, cost).send({ from: this.accounts[0] });
 
-    console.log(result);
+    console.log({ handleSubmit: result });
 
     alert(`Sent ${cost} Wei to ${result.events.SupplyChainStep.returnValues._itemAddress}`);
 
@@ -67,6 +69,16 @@ class App extends Component {
 
   resetForm = () => {
     this.setState({ itemName: '', cost: 0 });
+  };
+
+  listenToPaymentEvent = () => {
+    this.itemManager.events.SupplyChainStep().on('data', async (event) => {
+      console.log({ event });
+
+      const item = await this.itemManager.methods.items(event.returnValues._itemIndex).call();
+      console.log({ item });
+      alert(`Item ${item._identifier} was paid, deliver it now!`);
+    });
   };
 
   render() {
