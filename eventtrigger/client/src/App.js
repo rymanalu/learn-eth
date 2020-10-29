@@ -28,7 +28,7 @@ class App extends Component {
         ItemManagerContract.networks[this.networkId] && ItemManagerContract.networks[this.networkId].address,
       );
 
-      this.itemManager = new this.web3.eth.Contract(
+      this.item = new this.web3.eth.Contract(
         ItemContract.abi,
         ItemContract.networks[this.networkId] && ItemContract.networks[this.networkId].address,
       );
@@ -56,7 +56,13 @@ class App extends Component {
   handleSubmit = async () => {
     const { itemName, cost } = this.state;
 
-    await this.itemManager.methods.createItem(itemName, cost).send({ from: this.accounts[0] });
+    const result = await this.itemManager.methods.createItem(itemName, cost).send({ from: this.accounts[0] });
+
+    console.log(result);
+
+    alert(`Sent ${cost} Wei to ${result.events.SupplyChainStep.returnValues._itemAddress}`);
+
+    this.resetForm();
   };
 
   resetForm = () => {
