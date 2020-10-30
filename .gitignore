@@ -3,3 +3,4 @@ package-lock.json
 .vscode
 yarn.lock
 eventtrigger/client/src/contracts
+private_network/chaindata
