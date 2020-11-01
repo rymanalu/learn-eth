@@ -4,3 +4,4 @@ package-lock.json
 yarn.lock
 eventtrigger/client/src/contracts
 private_network/chaindata
+asset_tokenization/node_modules
