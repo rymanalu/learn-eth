@@ -1,3 +1,5 @@
+require('dotenv').config({ path: '../.env' });
+
 const Token = artifacts.require('MyToken');
 
 const { assert } = require('chai');
@@ -11,13 +13,15 @@ chai.use(chaiAsPromised);
 
 const expect = chai.expect;
 
+const { INITIAL_TOKENS } = process.env;
+
 contract('Token Test', async (accounts) => {
   const [deployerAccount, recipient, anotherAccount] = accounts;
 
   let myToken;
 
   beforeEach(async () => {
-    myToken = await Token.new(1000000);
+    myToken = await Token.new(INITIAL_TOKENS);
   });
 
   it('all tokens should be in my account', async () => {

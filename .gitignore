@@ -6,3 +6,4 @@ eventtrigger/client/src/contracts
 private_network/chaindata
 asset_tokenization/node_modules
 asset_tokenization/client/src/contracts
+.env
