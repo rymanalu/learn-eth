@@ -2,6 +2,7 @@ require('dotenv').config({ path: '../.env' });
 
 const Token = artifacts.require('MyToken');
 const TokenSale = artifacts.require('MyTokenSale');
+const KYC = artifacts.require('KYC');
 
 const chai = require('./setupchai');
 
@@ -30,7 +31,10 @@ contract('TokenSale Test', async (accounts) => {
   it('should be possible to buy tokens', async () => {
     const tokenInstance = await Token.deployed();
     const tokenSaleInstance = await TokenSale.deployed();
+    const kycInstance = await KYC.deployed();
     const balanceBefore = await tokenInstance.balanceOf(deployerAccount);
+
+    await kycInstance.setKycCompleted(deployerAccount, { from: deployerAccount });
 
     expect(tokenSaleInstance.sendTransaction({
       from: deployerAccount,
