@@ -7,3 +7,5 @@ private_network/chaindata
 asset_tokenization/node_modules
 asset_tokenization/client/src/contracts
 .env
+drizzle_example/client/public
+drizzle_example/client/src/artifacts
